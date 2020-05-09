@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.nedervold.testmvncipkgspike</groupId>
+  <artifactId>testmvncipkgspike</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>testmvncipkgspike</name>
+  <!-- FIXME change it to the project's website -->
+  <url>https://github.com/nedervold/test-mvn-ci-pkg-spike</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <main.class>org.nedervold.testmvncipkgspike.App</main.class>
+  </properties>
+  <repositories>
+    <!-- NOTE: GitHub Packages are not open to the public; only to
+    GitHub users.  To use the repository, you need to generate a token
+    and put it in your ~/.m2/settings.xml configuration.  See
+
+https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-apache-maven-for-use-with-github-packages#authenticating-to-github-packages
+	 -->
+    <repository>
+      <id>github</id>
+      <name>GitHub nedervold Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/nedervold/mvncipkgspike</url>
+    </repository>
+  </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>org.nedervold.mvncipkgspike</groupId>
+      <artifactId>mvncipkgspike</artifactId>
+      <version>2.0</version>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.2.0</version>
+        <configuration>
+          <source>8</source>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+	<configuration>
+	  <archive>
+	    <manifest>
+	      <mainClass>${main.class}</mainClass>
+	    </manifest>
+	  </archive>
+	</configuration>
+      </plugin>
+      <plugin>
+	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+	<version>3.2.2</version>
+	<executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+	      <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.5.0</version>
+        <configuration>
+          <mainClass>${main.class}</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <!-- distributionManagement>
+       <repository>
+	 <id>github</id>
+	 <name>GitHub Packages</name>
+	 <url>https://maven.pkg.github.com/nedervold/test-mvn-ci-pkg-spike</url>
+       </repository>
+  </distributionManagement -->
+</project>
